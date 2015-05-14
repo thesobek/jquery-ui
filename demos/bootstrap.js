@@ -6,18 +6,18 @@
 
 	// Read the modules
 	var modules = script.getAttribute( "data-modules" );
-	var demoScripts = script.getAttribute( "data-modules" );
-	var path = window.location.pathname;
-	var pathParts = path.split( "/" );
-	var pathLength = pathParts.length;
-	if ( modules ) {
-		modules = modules
-			.replace( /^\s+|\s+$/g, "" )
-			.split( /\s+/ );
-	} else {
-		modules = [];
-	}
-	modules.push( pathParts[ pathLength - 2 ] );
+	var pathParts = window.location.pathname.split( "/" );
+
+	require.config( {
+		baseUrl: "../../ui",
+		paths: {
+			jquery: "../../external/jquery/jquery"
+		}
+	} );
+
+	modules = modules ? modules.replace( /^\s+|\s+$/g, "" ).split( /\s+/ ) : [];
+	modules.push( pathParts[ pathParts.length - 2 ] );
+
 	require( modules, function() {
 		$( "body" ).css( "visibility", "visible" );
 		eval( $( script ).html() );
