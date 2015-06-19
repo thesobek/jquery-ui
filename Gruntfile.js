@@ -1,51 +1,80 @@
 module.exports = function( grunt ) {
-
-"use strict";
-
-var
+	var
 	// files
-	coreFiles = [
-		"core.js",
-		"widget.js",
-		"mouse.js",
-		"draggable.js",
-		"droppable.js",
-		"resizable.js",
-		"selectable.js",
-		"sortable.js",
-		"effect.js"
-	],
+		coreFiles = [
+			"core.js",
+			"widget.js",
+			"mouse.js",
+			"draggable.js",
+			"droppable.js",
+			//"resizable.js",
+			"selectable.js",
+			//"sortable.js",
+			"effect.js"
+		],
 
-	uiFiles = coreFiles.map(function( file ) {
-		return "ui/" + file;
-	}).concat( expandFiles( "ui/*.js" ).filter(function( file ) {
-		return coreFiles.indexOf( file.substring( 3 ) ) === -1;
-	}) ),
+		excludedFiles = [
+			'accordion.js',
+			'autocomplete.js',
+			'button.js',
+			'menu.js',
+			'effect-blind.js',
+			'effect-bounce.js',
+			'effect-clip.js',
+			'effect-drop.js',
+			'effect-explode.js',
+			'effect-fade.js',
+			'effect-fold.js',
+			'effect-highlight.js',
+			'effect-puff.js',
+			'effect-pulsate.js',
+			'effect-scale.js',
+			'effect-shake.js',
+			'effect-size.js',
+			'progressbar.js',
+			'resizable.js',
+			'selectmenu.js',
+			'slider.js',
+			'spinner.js',
+			'tabs.js'
+		],
 
-	allI18nFiles = expandFiles( "ui/i18n/*.js" ),
+		uiFiles = coreFiles.map(function( file ) {
+			return "ui/" + file;
+		}).concat( expandFiles( "ui/*.js" ).filter(function( file ) {
+			return coreFiles.indexOf( file.substring( 3 ) ) === -1
+				&& excludedFiles.indexOf ( file.substring( 3 ) ) === -1;
+		}) ),
 
-	cssFiles = [
-		"core",
-		"accordion",
-		"autocomplete",
-		"button",
-		"datepicker",
-		"dialog",
-		"draggable",
-		"menu",
-		"progressbar",
-		"resizable",
-		"selectable",
-		"selectmenu",
-		"sortable",
-		"slider",
-		"spinner",
-		"tabs",
-		"tooltip",
-		"theme"
-	].map(function( component ) {
-		return "themes/base/" + component + ".css";
-	}),
+		allI18nFiles = expandFiles(
+			//"ui/i18n/*.js"
+			"ui/i18n/datepicker-en*.js",
+			"ui/i18n/datepicker-de.js"
+		),
+
+
+		cssFiles = [
+			"core",
+			//"accordion",
+			//"autocomplete",
+			//"button",
+			"datepicker",
+			//"dialog",
+			"draggable",
+			//"menu",
+			//"progressbar",
+			//"resizable",
+			"selectable",
+			//"selectmenu",
+			"sortable",
+			//"slider",
+			//"spinner",
+			//"tabs",
+			"tooltip",
+			"theme"
+		].map(function( component ) {
+				return "themes/base/" + component + ".css";
+			}),
 
 	// minified files
 	minify = {
